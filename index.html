@@ -3,50 +3,53 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kuldeep Studio Aligarh - Rs.10 Photo Editing</title>
-<script src="https://cdn.tailwindcss.com"></script>
+<title>Kuldeep Studio - Shaadi Editor Aligarh</title>
+<style>
+body{margin:0;font-family:sans-serif;background:#fff0f5}
+.head{background:linear-gradient(135deg,#ff5a7f,#ffd700);color:white;text-align:center;padding:20px}
+.card{max-width:800px;margin:15px auto;background:white;border-radius:18px;padding:18px;box-shadow:0 5px 20px #ff000020;border:2px solid gold}
+.up{border:3px dashed #ff5a7f;border-radius:15px;padding:25px;text-align:center;background:#fff8f9}
+.btn{width:100%;padding:14px;border:none;border-radius:12px;font-weight:700;font-size:17px;margin-top:10px}
+.pink{background:#ff4d6d;color:white} .gold{background:gold;color:#5a0000}
+canvas{width:100%;border-radius:12px;border:2px solid gold}
+</style>
 </head>
-<body class="bg-[#FFF8F0]">
-<div class="bg-[#800000] text-white text-center py-2 text-sm">Aligarh Ki No.1 Editing Studio - 1000+ Photos Edited</div>
-<section class="text-center py-12 px-4">
-<h1 class="text-4xl font-bold text-[#800000]">Kuldeep Studio Aligarh</h1>
-<p class="text-xl mt-3">Shaadi Aashirwad Photo Editing - Rs.10 Se Shuru</p>
-<div class="mt-6 flex gap-4 justify-center">
-<a href="https://wa.me/919368638452?text=Bhaiya%20photo%20edit%20karni%20hai" class="bg-green-600 text-white px-6 py-3 rounded-full font-bold">WhatsApp Pe Bhejo</a>
-<a href="#pricing" class="bg-[#800000] text-white px-6 py-3 rounded-full font-bold">Price Dekho</a>
+<body>
+<div class="head">
+<h1 style="margin:0">💖 कुलदीप स्टूडियो अलीगढ़ 💖</h1>
+<p>Upload Photo | पीछे आशीर्वाद कपल जोड़ें | बैकग्राउंड लोग हटाएं | HD Download</p>
 </div>
-</section>
-<section id="pricing" class="px-4 py-10 bg-white">
-<h2 class="text-3xl font-bold text-center mb-8">Hamare Rates</h2>
-<div class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-<div class="border-2 p-6 rounded-2xl text-center">
-<h3>Single Photo</h3>
-<p class="text-4xl font-bold my-3">Rs.10</p>
-<p>HD Retouching + Background</p>
-<button onclick="copyUPI()" class="mt-4 bg-black text-white px-4 py-2 rounded">Pay Rs.10</button>
+
+<div class="card">
+<div class="up" onclick="file.click()"><h2>📷 फोटो अपलोड करें</h2><p>यहाँ क्लिक करें</p><input type="file" id="file" accept="image/*" hidden></div>
+<button class="btn pink" onclick="addCouple()">👫 आशीर्वाद कपल जोड़ें</button>
+<button class="btn gold" onclick="blurBg()">🧹 पीछे के लोग हटाएं (Blur)</button>
+<button class="btn" style="background:black;color:white" onclick="downloadHD()">⬇️ HD फोटो डाउनलोड</button>
 </div>
-<div class="border-2 border-[#800000] p-6 rounded-2xl text-center bg-[#FFF8F0]">
-<h3>10 Photos Combo</h3>
-<p class="text-4xl font-bold my-3">Rs.80</p>
-<p>Rs.8 per photo + Fast Delivery</p>
-<button onclick="copyUPI()" class="mt-4 bg-[#800000] text-white px-4 py-2 rounded">Pay Rs.80 - UPI: 9368638452@ptaxis</button>
+
+<div class="card">
+<h3 style="text-align:center;color:#ff4d6d">Preview</h3>
+<canvas id="c" width="800" height="1000"></canvas>
 </div>
-</div>
-</section>
-<section class="py-10 px-4 text-center">
-<h2 class="text-2xl font-bold">Kaise Kaam Hota Hai?</h2>
-<div class="flex flex-col md:flex-row justify-center gap-8 mt-6">
-<div>1. WhatsApp Pe Photo Bhejo<br><b>9368638452</b></div>
-<div>2. UPI Pe Pay Karo<br><b>9368638452@ptaxis</b></div>
-<div>3. 2 Ghante Me Photo Pao</div>
-</div>
-</section>
-<footer class="bg-black text-white text-center py-6 text-sm">Kuldeep Studio, Aligarh | 9368638452<br>© 2026 Kuldeep Studio Aligarh</footer>
+
 <script>
-function copyUPI(){
-navigator.clipboard.writeText("9368638452@ptaxis");
-alert("UPI Copy Ho Gayi: 9368638452@ptaxis");
+let img=new Image(),couple=new Image(),blur=false;
+couple.src='https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600';couple.crossOrigin='anonymous';
+let canvas=document.getElementById('c'),ctx=canvas.getContext('2d');
+file.onchange=e=>{
+let f=e.target.files[0];let u=URL.createObjectURL(f);img.src=u;
+img.onload=()=>{canvas.width=img.width;canvas.height=img.height;draw()}
 }
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+if(blur){ctx.filter='blur(20px)';ctx.drawImage(img,0,0);ctx.filter='none';ctx.save();ctx.beginPath();ctx.arc(canvas.width/2,canvas.height/2,canvas.width*0.35,0,Math.PI*2);ctx.clip();ctx.drawImage(img,0,0,canvas.width,canvas.height);ctx.restore()}else{ctx.drawImage(img,0,0,canvas.width,canvas.height)}
+}
+function addCouple(){
+if(!img.src){alert('पहले फोटो अपलोड करो');return}
+draw();ctx.globalAlpha=0.9;ctx.drawImage(couple,20,20,canvas.width*0.35,canvas.height*0.22);ctx.globalAlpha=1;ctx.fillStyle='gold';ctx.font='bold '+(canvas.width*0.06)+'px sans-serif';ctx.fillText('💖 आशीर्वाद 💖',20,canvas.height-30)
+}
+function blurBg(){if(!img.src){alert('पहले फोटो अपलोड करो');return}blur=!blur;draw();if(blur)addCouple()}
+function downloadHD(){let a=document.createElement('a');a.download='Kuldeep_Studio_HD.jpg';a.href=canvas.toDataURL('image/jpeg',1.0);a.click()}
 </script>
 </body>
 </html>
