@@ -4,39 +4,56 @@
 <title>Kuldeep Studio Aligarh</title>
 <style>
 body{margin:0;font-family:sans-serif;background:#ffeef3}
-.card{max-width:800px;margin:15px auto;background:white;padding:15px;border-radius:15px;border:2px solid gold}
-.up{border:2px dashed #ff5a7f;padding:20px;text-align:center;border-radius:12px;background:#fff8f9;cursor:pointer}
-.btn{width:100%;padding:13px;margin-top:10px;border:none;border-radius:10px;font-weight:700;cursor:pointer}
-canvas{width:100%;border:2px solid gold;border-radius:10px}
+.top{background:#ff2e63;color:white;text-align:center;padding:14px}
+.card{max-width:800px;margin:12px auto;background:white;padding:14px;border-radius:14px;border:2px solid gold}
+.up{border:3px dashed #ff2e63;padding:22px;text-align:center;border-radius:12px;background:#fff5f7}
+.btn{width:100%;padding:13px;margin-top:9px;border:none;border-radius:10px;font-weight:800;font-size:15px}
+canvas{width:100%;border-radius:10px;border:2px solid #ff2e63;background:#eee}
 </style>
 </head><body>
-
-<div style="background:#ff5a7f;color:white;text-align:center;padding:15px">
-<h2 style="margin:0">Kuldeep Studio - Aligarh</h2>
-<p style="margin:5px 0">📍 Shahabad, Aligarh | 📞 9368638452</p>
-</div>
+<div class="top"><h3 style="margin:0">KULDEEP STUDIO - ALIGARH</h3><p style="margin:4px">Shahabad | 9368638452</p></div>
 
 <div class="card">
-<div class="up" onclick="file.click()">📷 Photo Upload Kare - Click Kare<input type="file" id="file" accept="image/*" hidden></div>
-<button class="btn" style="background:#ff5a7f;color:white" onclick="addCouple()">👫 Aashirwad Couple Jode</button>
-<button class="btn" style="background:gold" onclick="blurBg()">🧹 Pichhe Ke Log Hataye</button>
-<p style="text-align:center;background:#fff3cd;padding:10px;border-radius:8px;border:1px solid gold">💰 Charge: <b>₹50 / Photo</b> - WhatsApp Kare</p>
-<button class="btn" style="background:#25D366;color:white" onclick="sendWA()">📲 WhatsApp - 9368638452</button>
-<button class="btn" style="background:black;color:white" onclick="downloadHD()">⬇️ Download</button>
+<div class="up" id="upBox">📷 YAHAN CLICK KARKE PHOTO UPLOAD KARE<input type="file" id="file" accept="image/*" hidden></div>
+<button class="btn" style="background:#ff2e63;color:white" onclick="addCouple()">👫 AASHIRWAD COUPLE AUTO JODE</button>
+<button class="btn" style="background:gold" onclick="toggleBlur()">🧹 BACKGROUND AUTO BLUR - LOG HATAYE</button>
+<button class="btn" style="background:#25D366;color:white" onclick="sendWA()">📲 WHATSAPP - 9368638452</button>
+<button class="btn" style="background:black;color:white" onclick="downloadImg()">⬇️ DOWNLOAD KARE</button>
+<p style="text-align:center;background:#fff3cd;padding:8px;border-radius:8px">Charge ₹50 / Photo | Preview Free</p>
 </div>
 
-<div class="card"><canvas id="c"></canvas></div>
-
-<div class="card" style="text-align:center">📍 Shahabad, Aligarh, UP<br>Contact: 9368638452</div>
+<div class="card"><canvas id="c" width="800" height="1000"></canvas><p id="status" style="text-align:center;color:#ff2e63;font-weight:bold"></p></div>
 
 <script>
-let img=new Image(),couple=new Image(),blur=false;
-couple.src='https://images.unsplash.com/photo-1520854221256-17451ccdf07b?w=600';couple.crossOrigin='anonymous';
-let c=document.getElementById('c'),ctx=c.getContext('2d');
-file.onchange=e=>{let u=URL.createObjectURL(e.target.files[0]);img.src=u;img.onload=()=>{c.width=img.width;c.height=img.height;draw()}}
-function draw(){ctx.clearRect(0,0,c.width,c.height);if(blur){ctx.filter='blur(20px)';ctx.drawImage(img,0,0);ctx.filter='none';ctx.save();ctx.beginPath();ctx.arc(c.width/2,c.height/2,c.width*0.35,0,6.28);ctx.clip();ctx.drawImage(img,0,0,c.width,c.height);ctx.restore()}else ctx.drawImage(img,0,0,c.width,c.height)}
-function addCouple(){if(!img.src)return alert('Photo daalo');draw();ctx.drawImage(couple,20,20,c.width*0.35,c.height*0.22)}
-function blurBg(){if(!img.src)return alert('Photo daalo');blur=!blur;draw()}
-function downloadHD(){if(!img.src)return alert('Photo daalo');let a=document.createElement('a');a.download='Kuldeep_Studio.jpg';a.href=c.toDataURL('image/jpeg',0.8);a.click()}
-function sendWA(){let n="919368638452";window.open(`https://wa.me/${n}?text=Hi%20Kuldeep%20Bhai%20Photo%20Editing%20Karwani%20Hai%20Aligarh%20Se`,'_blank')}
-</script></body></html>
+let img=null, isBlur=false, coupleAdded=false;
+let canvas=document.getElementById('c');
+let ctx=canvas.getContext('2d');
+let file=document.getElementById('file');
+let upBox=document.getElementById('upBox');
+let status=document.getElementById('status');
+
+upBox.onclick=()=>file.click();
+
+file.onchange=(e)=>{
+ let f=e.target.files[0];
+ if(!f) return;
+ let reader=new FileReader();
+ reader.onload=(ev)=>{
+   img=new Image();
+   img.onload=()=>{
+     canvas.width=img.width;
+     canvas.height=img.height;
+     isBlur=false; coupleAdded=false;
+     drawMain();
+     status.innerText="✅ Photo Load Ho Gayi! Ab Couple Jode";
+   };
+   img.src=ev.target.result;
+ };
+ reader.readAsDataURL(f);
+};
+
+function drawMain(){
+ ctx.clearRect(0,0,canvas.width,canvas.height);
+ if(isBlur){
+   ctx.filter='blur(18px)';
+   ctx.drawImage(img
