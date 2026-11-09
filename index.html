@@ -1,59 +1,113 @@
 <!DOCTYPE html>
-<html><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kuldeep Studio Aligarh</title>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuldeep Studio</title>
 <style>
-body{margin:0;font-family:sans-serif;background:#ffeef3}
-.top{background:#ff2e63;color:white;text-align:center;padding:14px}
-.card{max-width:800px;margin:12px auto;background:white;padding:14px;border-radius:14px;border:2px solid gold}
-.up{border:3px dashed #ff2e63;padding:22px;text-align:center;border-radius:12px;background:#fff5f7}
-.btn{width:100%;padding:13px;margin-top:9px;border:none;border-radius:10px;font-weight:800;font-size:15px}
-canvas{width:100%;border-radius:10px;border:2px solid #ff2e63;background:#eee}
+body{margin:0;padding:10px;background:#ffeef3;font-family:sans-serif}
+.box{max-width:600px;margin:auto;background:white;padding:15px;border-radius:12px;border:2px solid gold;margin-bottom:12px}
+button{width:100%;padding:15px;margin:6px 0;border:none;border-radius:10px;font-weight:bold;font-size:16px}
+canvas{width:100%;border:2px solid #ff2e63;border-radius:10px}
+input{width:100%;padding:12px}
 </style>
-</head><body>
-<div class="top"><h3 style="margin:0">KULDEEP STUDIO - ALIGARH</h3><p style="margin:4px">Shahabad | 9368638452</p></div>
+</head>
+<body>
+<div class="box" style="background:#ff2e63;color:white;text-align:center"><h2>KULDEEP STUDIO ALIGARH</h2>9368638452 | Shahabad</div>
 
-<div class="card">
-<div class="up" id="upBox">📷 YAHAN CLICK KARKE PHOTO UPLOAD KARE<input type="file" id="file" accept="image/*" hidden></div>
-<button class="btn" style="background:#ff2e63;color:white" onclick="addCouple()">👫 AASHIRWAD COUPLE AUTO JODE</button>
-<button class="btn" style="background:gold" onclick="toggleBlur()">🧹 BACKGROUND AUTO BLUR - LOG HATAYE</button>
-<button class="btn" style="background:#25D366;color:white" onclick="sendWA()">📲 WHATSAPP - 9368638452</button>
-<button class="btn" style="background:black;color:white" onclick="downloadImg()">⬇️ DOWNLOAD KARE</button>
-<p style="text-align:center;background:#fff3cd;padding:8px;border-radius:8px">Charge ₹50 / Photo | Preview Free</p>
+<div class="box">
+<p><b>STEP 1: Photo Chuno</b></p>
+<input type="file" id="file" accept="image/*">
+<p><b>STEP 2: Editing</b></p>
+<button style="background:#ff2e63;color:white" onclick="addCouple()">1. AASHIRWAD COUPLE JODO</button>
+<button style="background:gold" onclick="doBlur()">2. BACKGROUND BLUR KARO</button>
+<button style="background:#25D366;color:white" onclick="sendWA()">3. WHATSAPP PAR BHEJO - 9368638452</button>
+<button style="background:black;color:white" onclick="download()">4. DOWNLOAD KARO</button>
+<p style="background:#fff3cd;padding:8px;text-align:center">Charge ₹50 | Aligarh</p>
 </div>
 
-<div class="card"><canvas id="c" width="800" height="1000"></canvas><p id="status" style="text-align:center;color:#ff2e63;font-weight:bold"></p></div>
+<div class="box">
+<canvas id="c" width="600" height="800"></canvas>
+<p id="msg" style="text-align:center;font-weight:bold;color:#ff2e63"></p>
+</div>
 
 <script>
-let img=null, isBlur=false, coupleAdded=false;
-let canvas=document.getElementById('c');
-let ctx=canvas.getContext('2d');
-let file=document.getElementById('file');
-let upBox=document.getElementById('upBox');
-let status=document.getElementById('status');
+var img=null, blur=false, couple=false;
+var canvas=document.getElementById('c');
+var ctx=canvas.getContext('2d');
+var msg=document.getElementById('msg');
 
-upBox.onclick=()=>file.click();
-
-file.onchange=(e)=>{
- let f=e.target.files[0];
+document.getElementById('file').addEventListener('change', function(e){
+ var f=e.target.files[0];
  if(!f) return;
- let reader=new FileReader();
- reader.onload=(ev)=>{
-   img=new Image();
-   img.onload=()=>{
-     canvas.width=img.width;
-     canvas.height=img.height;
-     isBlur=false; coupleAdded=false;
-     drawMain();
-     status.innerText="✅ Photo Load Ho Gayi! Ab Couple Jode";
-   };
-   img.src=ev.target.result;
+ var r=new FileReader();
+ r.onload=function(ev){
+  img=new Image();
+  img.onload=function(){
+   canvas.width=img.width;
+   canvas.height=img.height;
+   blur=false; couple=false;
+   draw();
+   msg.innerHTML="Photo aa gayi! Ab button dabao";
+  };
+  img.src=ev.target.result;
  };
- reader.readAsDataURL(f);
-};
+ r.readAsDataURL(f);
+});
 
-function drawMain(){
+function draw(){
  ctx.clearRect(0,0,canvas.width,canvas.height);
- if(isBlur){
-   ctx.filter='blur(18px)';
-   ctx.drawImage(img
+ if(!img) return;
+ if(blur){
+  ctx.filter='blur(15px)';
+  ctx.drawImage(img,0,0,canvas.width,canvas.height);
+  ctx.filter='none';
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(canvas.width/2, canvas.height/2, canvas.width*0.35, 0, Math.PI*2);
+  ctx.clip();
+  ctx.drawImage(img,0,0,canvas.width,canvas.height);
+  ctx.restore();
+ }else{
+  ctx.drawImage(img,0,0,canvas.width,canvas.height);
+ }
+ if(couple){
+  ctx.fillStyle='white';
+  ctx.fillRect(10,10,300,100);
+  ctx.fillStyle='#ff2e63';
+  ctx.font='bold 30px sans-serif';
+  ctx.fillText('💑 Aashirwad',20,50);
+  ctx.font='bold 20px sans-serif';
+  ctx.fillStyle='black';
+  ctx.fillText('Shaadi Mubarak',20,85);
+ }
+}
+
+function addCouple(){
+ if(!img){ alert('Pehle photo chuno'); return; }
+ couple=true;
+ draw();
+ msg.innerHTML="Couple jud gaya!";
+}
+
+function doBlur(){
+ if(!img){ alert('Pehle photo chuno'); return; }
+ blur=!blur;
+ draw();
+ msg.innerHTML=blur ? "Background blur ho gaya!" : "Blur hat gaya";
+}
+
+function download(){
+ if(!img){ alert('Pehle photo chuno'); return; }
+ var a=document.createElement('a');
+ a.download='kuldeep.jpg';
+ a.href=canvas.toDataURL('image/jpeg',0.9);
+ a.click();
+}
+
+function sendWA(){
+ window.open('https://wa.me/919368638452?text=Hi%20Kuldeep%20Bhai%20Editing%20Karwani%20Hai','_blank');
+}
+</script>
+</body>
+</html>
