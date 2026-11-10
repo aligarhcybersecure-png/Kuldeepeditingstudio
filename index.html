@@ -1,32 +1,33 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kuldeep Shoes - Fixed</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuldeep Shoes - Aligarh</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:#f2f2f2}
-.header{background:#000;color:#fff;padding:12px;position:sticky;top:0;z-index:100}
-.top{display:flex;justify-content:space-between;align-items:center}
-.logo{font-weight:900;font-size:20px}.logo span{color:#ff3b30}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#f5f5f5}
+.header{background:#000;color:#fff;padding:12px;position:sticky;top:0;z-index:99}
+.h1{display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:900;font-size:22px} .logo b{color:#ff3b30}
 .search{margin-top:8px;display:flex;gap:6px}
 .search input{flex:1;padding:10px;border-radius:8px;border:none}
-.search button{padding:10px 14px;background:#ff3b30;color:#fff;border:none;border-radius:8px;font-weight:700}
-.cat{background:#fff;padding:8px;display:flex;gap:6px;overflow:auto;border-bottom:2px solid #ddd}
-.cat button{padding:7px 14px;border:1px solid #000;border-radius:20px;background:#fff;font-weight:700;white-space:nowrap;font-size:12px}.cat button.active{background:#000;color:#fff}
-.shop{max-width:1200px;margin:auto;display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:10px}
-@media(min-width:600px){.shop{grid-template-columns:repeat(3,1fr)}}
-.card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1);position:relative}
-.badge-stock{position:absolute;top:6px;left:6px;background:red;color:#fff;font-size:9px;padding:3px 6px;border-radius:10px;z-index:2}
-.wish-btn{position:absolute;top:6px;right:6px;background:#fff;border:none;width:26px;height:26px;border-radius:50%;z-index:2}
-.imgbox{position:relative;height:150px;overflow:hidden}
-.imgbox img{width:100%;height:100%;object-fit:cover}
-.arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.7);color:#fff;border:none;width:24px;height:24px;border-radius:50%}
-.arrow.l{left:5px}.arrow.r{right:5px}
-.dots{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);display:flex;gap:3px}
-.dots span{width:6px;height:6px;background:#00000040;border-radius:50%}.dots span.on{background:#000}
-.body{padding:8px}
-.price{color:#ff3b30;font-weight:900}
-.btn{width:100%;padding:7px;border:none;border-radius:7px;font-weight:700;margin-top:4px;font-size:12px}
-.btn1{background:#eee;border:1px solid #000 !important}.btn2{background:#000;color:#fff}
-.cartbtn{position:fixed;bottom:15px;right:15px;background:#000;color:#fff;padding:12px 18px;border-radius:30px;font-weight:900;z-index:200}
-.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:
+.search button{padding:10px 15px;background:#ff3b30;color:#fff;border:none;border-radius:8px;font-weight:700}
+.cats{background:#fff;padding:8px;display:flex;gap:6px;overflow:auto}
+.cats button{padding:6px 14px;border:1px solid #000;border-radius:20px;background:#fff;font-weight:700;white-space:nowrap}
+.cats button.active{background:#000;color:#fff}
+.shop{max-width:1100px;margin:auto;display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:10px}
+@media(min-width:700px){.shop{grid-template-columns:repeat(4,1fr)}}
+.card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.1);position:relative}
+.card img{width:100%;height:160px;object-fit:cover}
+.card-body{padding:8px}
+.price{color:#ff3b30;font-weight:900;font-size:18px}
+.old{font-size:12px;color:#888;text-decoration:line-through;margin-left:5px}
+.btn{width:100%;padding:8px;border:none;border-radius:8px;margin-top:5px;font-weight:700;font-size:13px}
+.btn-cart{background:#eee;border:1px solid #000 !important}
+.btn-buy{background:#000;color:#fff}
+.badge{position:absolute;top:6px;left:6px;background:red;color:#fff;font-size:10px;padding:3px 7px;border-radius:10px}
+.cart-float{position:fixed;bottom:20px;right:20px;background:#000;color:#fff;padding:14px 20px;border-radius:30px;font-weight:900;z-index:200;cursor:pointer}
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:300;justify-content:center;align-items:center}
+.box{background:#fff;width:95%;max-width:380px;border-radius:12px;padding:14px;max-height:90vh;overflow:auto}
+.size{display:flex;gap:6px;
