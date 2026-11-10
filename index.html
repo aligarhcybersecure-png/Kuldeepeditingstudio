@@ -1,113 +1,81 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kuldeep Studio</title>
+<html><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuldeep Studio Aligarh - Best Wedding Photo Editing in Shahabad</title>
+<meta name="description" content="Best Photo Editing Studio in Aligarh Shahabad - Wedding Editing ₹50, Aashirwad Couple, Background Change - Call 9368638452">
 <style>
-body{margin:0;padding:10px;background:#ffeef3;font-family:sans-serif}
-.box{max-width:600px;margin:auto;background:white;padding:15px;border-radius:12px;border:2px solid gold;margin-bottom:12px}
-button{width:100%;padding:15px;margin:6px 0;border:none;border-radius:10px;font-weight:bold;font-size:16px}
-canvas{width:100%;border:2px solid #ff2e63;border-radius:10px}
-input{width:100%;padding:12px}
+body{margin:0;font-family:sans-serif;background:white}
+.hero{background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url('https://images.unsplash.com/photo-1519741497674-611481863552?w=900');background-size:cover;color:white;text-align:center;padding:60px 15px}
+.hero h1{font-size:32px;margin:0}
+.btn{padding:14px 22px;border:none;border-radius:30px;font-weight:900;margin:6px;display:inline-block;text-decoration:none}
+.grid{max-width:1000px;margin:auto;padding:15px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,0.1);border:1px solid gold}
+.card img{width:100%;height:160px;object-fit:cover}
+.card div{padding:12px}
+.price{color:#ff2e63;font-size:22px;font-weight:900}
+.footer{background:#111;color:white;text-align:center;padding:20px}
+@media(max-width:700px){.grid{grid-template-columns:1fr 1fr}.hero h1{font-size:24px}}
 </style>
-</head>
-<body>
-<div class="box" style="background:#ff2e63;color:white;text-align:center"><h2>KULDEEP STUDIO ALIGARH</h2>9368638452 | Shahabad</div>
+</head><body>
 
-<div class="box">
-<p><b>STEP 1: Photo Chuno</b></p>
-<input type="file" id="file" accept="image/*">
-<p><b>STEP 2: Editing</b></p>
-<button style="background:#ff2e63;color:white" onclick="addCouple()">1. AASHIRWAD COUPLE JODO</button>
-<button style="background:gold" onclick="doBlur()">2. BACKGROUND BLUR KARO</button>
-<button style="background:#25D366;color:white" onclick="sendWA()">3. WHATSAPP PAR BHEJO - 9368638452</button>
-<button style="background:black;color:white" onclick="download()">4. DOWNLOAD KARO</button>
-<p style="background:#fff3cd;padding:8px;text-align:center">Charge ₹50 | Aligarh</p>
+<div class="hero">
+<h1>KULDEEP STUDIO ALIGARH</h1>
+<h2 style="color:gold">Shahabad Ka No.1 Wedding Editing Studio</h2>
+<p>📍 Shahabad, Aligarh, UP | ⏰ 24 Hours Service</p>
+<a href="https://wa.me/919368638452" class="btn" style="background:#25D366;color:white">WHATSAPP - 9368638452</a>
+<a href="tel:919368638452" class="btn" style="background:gold;color:black">CALL KARO</a>
 </div>
 
-<div class="box">
-<canvas id="c" width="600" height="800"></canvas>
-<p id="msg" style="text-align:center;font-weight:bold;color:#ff2e63"></p>
+<div style="max-width:1000px;margin:auto;padding:15px;text-align:center">
+<h2>🎯 Hamari Services - Aligarh Me Sabse Sasta</h2>
 </div>
 
-<script>
-var img=null, blur=false, couple=false;
-var canvas=document.getElementById('c');
-var ctx=canvas.getContext('2d');
-var msg=document.getElementById('msg');
+<div class="grid">
 
-document.getElementById('file').addEventListener('change', function(e){
- var f=e.target.files[0];
- if(!f) return;
- var r=new FileReader();
- r.onload=function(ev){
-  img=new Image();
-  img.onload=function(){
-   canvas.width=img.width;
-   canvas.height=img.height;
-   blur=false; couple=false;
-   draw();
-   msg.innerHTML="Photo aa gayi! Ab button dabao";
-  };
-  img.src=ev.target.result;
- };
- r.readAsDataURL(f);
-});
+<div class="card">
+<img src="https://images.unsplash.com/photo-1520854221256-17451ccdf07b?w=400">
+<div><h3>Wedding Editing</h3><p>Color + Face Clean</p><div class="price">₹50 / Photo</div><a href="https://wa.me/919368638452?text=Wedding%20Editing%20₹50%20karwani%20hai" class="btn" style="background:#ff2e63;color:white;width:80%;text-align:center">Order Karo</a></div>
+</div>
 
-function draw(){
- ctx.clearRect(0,0,canvas.width,canvas.height);
- if(!img) return;
- if(blur){
-  ctx.filter='blur(15px)';
-  ctx.drawImage(img,0,0,canvas.width,canvas.height);
-  ctx.filter='none';
-  ctx.save();
-  ctx.beginPath();
-  ctx.arc(canvas.width/2, canvas.height/2, canvas.width*0.35, 0, Math.PI*2);
-  ctx.clip();
-  ctx.drawImage(img,0,0,canvas.width,canvas.height);
-  ctx.restore();
- }else{
-  ctx.drawImage(img,0,0,canvas.width,canvas.height);
- }
- if(couple){
-  ctx.fillStyle='white';
-  ctx.fillRect(10,10,300,100);
-  ctx.fillStyle='#ff2e63';
-  ctx.font='bold 30px sans-serif';
-  ctx.fillText('💑 Aashirwad',20,50);
-  ctx.font='bold 20px sans-serif';
-  ctx.fillStyle='black';
-  ctx.fillText('Shaadi Mubarak',20,85);
- }
-}
+<div class="card">
+<img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=400">
+<div><h3>Aashirwad Couple</h3><p>Dulha Dulhan Add</p><div class="price">₹70 / Photo</div><a href="https://wa.me/919368638452?text=Aashirwad%20Couple%20Add%20karwana%20hai" class="btn" style="background:gold;color:black;width:80%;text-align:center">Order Karo</a></div>
+</div>
 
-function addCouple(){
- if(!img){ alert('Pehle photo chuno'); return; }
- couple=true;
- draw();
- msg.innerHTML="Couple jud gaya!";
-}
+<div class="card">
+<img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=400">
+<div><h3>Background Change</h3><p>Studio / Blur / Remove People</p><div class="price">₹100 / Photo</div><a href="https://wa.me/919368638452?text=Background%20Change%20karwana%20hai" class="btn" style="background:black;color:white;width:80%;text-align:center">Order Karo</a></div>
+</div>
 
-function doBlur(){
- if(!img){ alert('Pehle photo chuno'); return; }
- blur=!blur;
- draw();
- msg.innerHTML=blur ? "Background blur ho gaya!" : "Blur hat gaya";
-}
+<div class="card">
+<img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400">
+<div><h3>Full Wedding Pack</h3><p>50 Photos + Album Design</p><div class="price">₹1999</div><a href="https://wa.me/919368638452?text=Full%20Wedding%20Pack%20₹1999%20lena%20hai" class="btn" style="background:#25D366;color:white;width:80%;text-align:center">Order Karo</a></div>
+</div>
 
-function download(){
- if(!img){ alert('Pehle photo chuno'); return; }
- var a=document.createElement('a');
- a.download='kuldeep.jpg';
- a.href=canvas.toDataURL('image/jpeg',0.9);
- a.click();
-}
+<div class="card">
+<img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400">
+<div><h3>Pre-Wedding Editing</h3><p>Cinematic Edit</p><div class="price">₹150 / Photo</div><a href="https://wa.me/919368638452?text=Pre%20Wedding%20Editing%20karwani%20hai" class="btn" style="background:#ff2e63;color:white;width:80%;text-align:center">Order Karo</a></div>
+</div>
 
-function sendWA(){
- window.open('https://wa.me/919368638452?text=Hi%20Kuldeep%20Bhai%20Editing%20Karwani%20Hai','_blank');
-}
-</script>
-</body>
-</html>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=400">
+<div><h3>Video Editing</h3><p>Reels + Wedding Teaser</p><div class="price">₹500 / Video</div><a href="https://wa.me/919368638452?text=Video%20Editing%20karwani%20hai" class="btn" style="background:gold;color:black;width:80%;text-align:center">Order Karo</a></div>
+</div>
+
+</div>
+
+<div style="max-width:800px;margin:20px auto;padding:15px;background:#fff3cd;border:2px dashed gold;border-radius:12px;text-align:center">
+<h2>📤 Photo Bhejo - 2 Ghante Me Delivery</h2>
+<p>WhatsApp pe photo bhejo, hum edit karke bhej denge</p>
+<a href="https://wa.me/919368638452" class="btn" style="background:#25D366;color:white;font-size:18px">📲 9368638452 Par Bhejo</a>
+</div>
+
+<div class="footer">
+<h2>Kuldeep Studio - Aligarh Shahabad</h2>
+<p>Best Photo Editing Studio in Aligarh District</p>
+<p>📞 9368638452 | 📍 Shahabad, Aligarh, UP 202002</p>
+<p>Google pe search karo: "Kuldeep Studio Aligarh"</p>
+<p style="color:gold">© 2026 Kuldeep Studio Aligarh</p>
+</div>
+
+</body></html>
